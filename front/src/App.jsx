@@ -1,6 +1,5 @@
-/* eslint-disable react/no-unstable-nested-components */
 import { Routes, Route } from 'react-router-dom';
-// Pages
+// Components
 import { Layout } from './components/Layout';
 import { HomePage } from './components/HomePage/HomePage';
 import { AuthPage } from './components/AuthPage/AuthPage';

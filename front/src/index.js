@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
-import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+// Store
 import store from './slices';
+// Providers
 import { AuthProvider } from './providers/AuthProvider';
+// Components
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('chat'));
 root.render(

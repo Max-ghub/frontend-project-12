@@ -1,12 +1,13 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 import cn from 'classnames';
-
-import { useNavigate } from 'react-router-dom';
-import routes from '../../routes';
+// Contexts
 import { AuthContext } from '../../contexts/AuthContext';
+// Routes
+import routes from '../../routes';
 
 const AuthForm = () => {
   const navigate = useNavigate();
