@@ -5,6 +5,7 @@ import { ChatPage } from './components/ChatPage/ChatPage';
 import { AuthPage } from './components/AuthPage/AuthPage';
 import { SignupPage } from './components/SignupPage';
 import { NotFoundPage } from './components/NotFoundPage';
+// Hoc
 import { RequireAuth } from './hoc/RequireAuth';
 
 const App = () => {

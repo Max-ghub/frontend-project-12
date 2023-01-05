@@ -1,10 +1,10 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 // import { io } from 'socket.io-client';
 // Slices
-import { addChannels } from '../../slices/channelsSlice';
-import { addMessages } from '../../slices/messagesSlice';
+import { actions as channelsActions } from '../../slices/channelsSlice';
+import { actions as messagesActions } from '../../slices/messagesSlice';
 // Contexts
 import { AuthContext } from '../../contexts/AuthContext';
 // Routes
@@ -17,15 +17,14 @@ const ChatPage = () => {
   // const socket = io();
   const dispatch = useDispatch();
   const { getAuthToken } = useContext(AuthContext);
-  const [selectedChannel, setSelectedChannel] = useState(1);
 
   useEffect(() => {
     // Getting a data from server with channels and messages of a user
     const fetchData = async () => {
       const response = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${getAuthToken()}` } });
       const { channels, messages } = response.data;
-      dispatch(addChannels(channels));
-      dispatch(addMessages(messages));
+      dispatch(channelsActions.addChannels(channels));
+      dispatch(messagesActions.addMessages(messages));
       // socket.emit('newMessage', { body: 'message text', channelId: 1, username: 'admin' });
       console.log(channels, messages);
     };
@@ -35,8 +34,8 @@ const ChatPage = () => {
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
-        <ChatChannels channelId={selectedChannel} setChannelId={setSelectedChannel} />
-        <ChatMessages channelId={selectedChannel} />
+        <ChatChannels />
+        <ChatMessages />
       </div>
     </div>
   );
