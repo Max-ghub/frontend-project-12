@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 // Components
 import { Layout } from './components/Layout';
@@ -13,14 +14,16 @@ import { actions as channelActions } from './slices/channelsSlice';
 import { actions as messageActions } from './slices/messagesSlice';
 // Socket
 import { socket } from './socket';
-import { useDispatch } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    socket.on('newMessage', (payload) => {
+      console.log(payload);
+      dispatch(messageActions.addMessage(payload));
+    });
     socket.on('newChannel', (payload) => {
-      console.log(1);
       dispatch(channelActions.addChannel(payload));
       dispatch(channelActions.setCurrentChannel(payload.id));
     });

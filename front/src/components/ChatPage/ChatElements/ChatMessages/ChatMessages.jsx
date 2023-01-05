@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux';
+// Components
 import { ChatTitle } from './ChatTitle';
 import { ChatSendForm } from './ChatSendForm';
-import { selectors } from '../../../../slices/messagesSlice';
+// Slices
+import { messageSelectors } from '../../../../slices/messagesSlice';
 
-const ChatMessages = ({ channelId }) => {
-  const messages = useSelector(selectors.selectAll);
-  const messagesChannel = messages.filter((item) => item.channelId === channelId);
+const ChatMessages = () => {
+  const { currentChannelId } = useSelector((state) => state.channels);
+  const messages = useSelector(messageSelectors.selectAll);
+  const messagesChannel = messages.filter((item) => item.channelId === currentChannelId);
   const messagesChannelCount = messagesChannel.length;
 
   return (
