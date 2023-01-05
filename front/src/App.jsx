@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 // Components
 import { Layout } from './components/Layout';
-import { HomePage } from './components/HomePage/HomePage';
+import { ChatPage } from './components/ChatPage/ChatPage';
 import { AuthPage } from './components/AuthPage/AuthPage';
 import { SignupPage } from './components/SignupPage';
 import { NotFoundPage } from './components/NotFoundPage';
@@ -12,7 +12,7 @@ const App = () => {
     <div className="d-flex flex-column h-100">
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<RequireAuth><HomePage /></RequireAuth>} />
+          <Route index element={<RequireAuth><ChatPage /></RequireAuth>} />
           <Route path="login" element={<AuthPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="*" element={<NotFoundPage />} />

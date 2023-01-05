@@ -1,4 +1,4 @@
-const HomeMessagesForm = () => {
+const ChatSendForm = () => {
   return (
     <form noValidate className="py-1 border rounded-2">
       <div className="input-group has-validation">
@@ -14,4 +14,4 @@ const HomeMessagesForm = () => {
   );
 };
 
-export { HomeMessagesForm };
+export { ChatSendForm };
