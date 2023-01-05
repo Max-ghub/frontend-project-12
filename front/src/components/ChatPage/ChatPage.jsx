@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-// import { io } from 'socket.io-client';
 // Slices
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as messagesActions } from '../../slices/messagesSlice';
@@ -25,7 +24,6 @@ const ChatPage = () => {
       const { channels, messages } = response.data;
       dispatch(channelsActions.addChannels(channels));
       dispatch(messagesActions.addMessages(messages));
-      // socket.emit('newMessage', { body: 'message text', channelId: 1, username: 'admin' });
       console.log(channels, messages);
     };
     fetchData();

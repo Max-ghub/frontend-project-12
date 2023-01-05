@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 // Components
 import { Layout } from './components/Layout';
@@ -7,8 +8,24 @@ import { SignupPage } from './components/SignupPage';
 import { NotFoundPage } from './components/NotFoundPage';
 // Hoc
 import { RequireAuth } from './hoc/RequireAuth';
+// Slices
+import { actions as channelActions } from './slices/channelsSlice';
+import { actions as messageActions } from './slices/messagesSlice';
+// Socket
+import { socket } from './socket';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    socket.on('newChannel', (payload) => {
+      console.log(1);
+      dispatch(channelActions.addChannel(payload));
+      dispatch(channelActions.setCurrentChannel(payload.id));
+    });
+  }, [dispatch]);
+
   return (
     <div className="d-flex flex-column h-100">
       <Routes>
