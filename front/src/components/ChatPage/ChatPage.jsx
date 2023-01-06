@@ -9,11 +9,10 @@ import { AuthContext } from '../../contexts/AuthContext';
 // Routes
 import routes from '../../routes';
 // Components
-import { ChatChannels } from './ChatElements/ChatChannels';
+import { ChatChannels } from './ChatElements/ChatChannels/ChatChannels';
 import { ChatMessages } from './ChatElements/ChatMessages/ChatMessages';
 
 const ChatPage = () => {
-  // const socket = io();
   const dispatch = useDispatch();
   const { getAuthToken } = useContext(AuthContext);
 

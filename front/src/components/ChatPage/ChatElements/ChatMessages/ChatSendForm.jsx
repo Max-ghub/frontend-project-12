@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
-// socket
+// Socket
 import { socket } from '../../../../socket';
 // Contexts
 import { AuthContext } from '../../../../contexts/AuthContext';

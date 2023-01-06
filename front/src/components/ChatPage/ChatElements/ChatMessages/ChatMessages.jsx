@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
+// Slices
+import { messageSelectors } from '../../../../slices/messagesSlice';
 // Components
 import { ChatTitle } from './ChatTitle';
 import { ChatSendForm } from './ChatSendForm';
-// Slices
-import { messageSelectors } from '../../../../slices/messagesSlice';
 
 const ChatMessages = () => {
   const { currentChannelId } = useSelector((state) => state.channels);

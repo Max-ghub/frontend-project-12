@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { useState } from 'react';
-
+// Contexts
 import { AuthContext } from '../contexts/AuthContext';
 
 export const AuthProvider = ({ children }) => {
