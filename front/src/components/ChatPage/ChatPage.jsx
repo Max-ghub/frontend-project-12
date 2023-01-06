@@ -27,7 +27,7 @@ const ChatPage = () => {
       console.log(channels, messages);
     };
     fetchData();
-  }, []);
+  }, [dispatch, getAuthToken]);
 
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
