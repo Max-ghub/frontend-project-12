@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 // Images
-import authImage from '../../assets/authPage.jpg';
+import authImage from '../assets/authPage.jpg';
 // Components
-import { AuthForm } from './AuthForm';
+import { AuthForm } from './AuthPageElements/AuthForm';
 
 const AuthPage = () => {
   const CardBody = (
@@ -18,7 +18,7 @@ const AuthPage = () => {
     <div className="card-footer p-4">
       <div className="text-center">
         <span>{'Нет аккаунта? '}</span>
-        <Link to="signup">Регистрация</Link>
+        <Link to="/signup">Регистрация</Link>
       </div>
     </div>
   );

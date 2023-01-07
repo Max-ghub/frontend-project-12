@@ -11,8 +11,8 @@ import { RequireAuth } from './hoc/RequireAuth';
 // Components
 import { Modal } from './components/Modal';
 import { Layout } from './components/Layout';
-import { ChatPage } from './components/ChatPage/ChatPage';
-import { AuthPage } from './components/AuthPage/AuthPage';
+import { ChatPage } from './components/ChatPage';
+import { AuthPage } from './components/AuthPage';
 import { SignupPage } from './components/SignupPage';
 import { NotFoundPage } from './components/NotFoundPage';
 

@@ -68,7 +68,7 @@ const AuthForm = () => {
         <Form.Label htmlFor="password">Пароль</Form.Label>
         {authFailed && <Form.Control.Feedback type="invalid" tooltip>Неверные имя пользователя или пароль</Form.Control.Feedback>}
       </Form.Group>
-      <Button type="submit" className="w-100 mb-3" variant="outline-primary" placement="right">
+      <Button type="submit" className="w-100 mb-3" variant="outline-primary" placement="right" disabled={formik.isSubmitting}>
         Войти
       </Button>
     </Form>

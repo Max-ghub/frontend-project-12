@@ -2,15 +2,15 @@ import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 // Slices
-import { actions as channelsActions } from '../../slices/channelsSlice';
-import { actions as messagesActions } from '../../slices/messagesSlice';
+import { actions as channelsActions } from '../slices/channelsSlice';
+import { actions as messagesActions } from '../slices/messagesSlice';
 // Contexts
-import { AuthContext } from '../../contexts/AuthContext';
+import { AuthContext } from '../contexts/AuthContext';
 // Routes
-import routes from '../../routes';
+import routes from '../routes';
 // Components
-import { ChatChannels } from './ChatElements/ChatChannels/ChatChannels';
-import { ChatMessages } from './ChatElements/ChatMessages/ChatMessages';
+import { ChatChannels } from './ChatPageElements/ChatChannels';
+import { ChatMessages } from './ChatPageElements/ChatMessages';
 
 const ChatPage = () => {
   const dispatch = useDispatch();

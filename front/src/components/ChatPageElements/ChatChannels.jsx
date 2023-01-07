@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 // Slices
-import { channelSelectors } from '../../../../slices/channelsSlice';
-import { actions as modalActions } from '../../../../slices/modalSlice';
+import { channelSelectors } from '../../slices/channelsSlice';
+import { actions as modalActions } from '../../slices/modalSlice';
 // Components
 import { ChannelItem } from './ChannelItem';
 

@@ -2,8 +2,8 @@ import { useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Dropdown } from 'react-bootstrap';
 import cn from 'classnames';
 // Slices
-import { actions as channelsActions } from '../../../../slices/channelsSlice';
-import { actions as modalActions } from '../../../../slices/modalSlice';
+import { actions as channelsActions } from '../../slices/channelsSlice';
+import { actions as modalActions } from '../../slices/modalSlice';
 
 const ChannelItem = ({ item, channelId }) => {
   const dispatch = useDispatch();

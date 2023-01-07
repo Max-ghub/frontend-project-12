@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 // Socket
-import { socket } from '../../../../socket';
+import { socket } from '../../socket';
 // Contexts
-import { AuthContext } from '../../../../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const ChatSendForm = () => {
   const { getUsername } = useContext(AuthContext);
