@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
+import * as yup from 'yup';
 // Slices
 import { actions as modalActions } from '../slices/modalSlice';
+import { channelSelectors } from '../slices/channelsSlice';
 // Socket
 import { socket } from '../socket';
 
@@ -18,6 +20,17 @@ const RenameChannel = () => {
 
   const onHide = () => dispatch(modalActions.closeModal());
 
+  const channelsNames = useSelector(channelSelectors.selectAll)
+    .map((channel) => channel.name);
+  const nameSchema = yup.object().shape({
+    name: yup
+      .string()
+      .required()
+      .min(3)
+      .max(20)
+      .notOneOf(channelsNames),
+  });
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -26,37 +39,35 @@ const RenameChannel = () => {
       socket.emit('renameChannel', { id: item.id, name });
       onHide();
     },
+    validationSchema: nameSchema,
   });
+  const isInvalid = formik.touched.name && formik.errors.name;
 
   return (
     <Modal show centered>
 
-      <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>
-          Переименовать канал
-        </Modal.Title>
+      <Modal.Header onHide={onHide} closeButton>
+        <Modal.Title>Переименовать канал</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
             <Form.Control
+              onChange={formik.handleChange}
+              value={formik.values.name}
               className="mb-2"
+              isInvalid={isInvalid}
               id="name"
               name="name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
               ref={inputRef}
             />
             <Form.Label className="visually-hidden" htmlFor="name">Имя канала</Form.Label>
+            {isInvalid && <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>}
 
             <div className="d-flex justify-content-end">
-              <Button className="me-2" variant="secondary" onClick={onHide}>
-                Отменить
-              </Button>
-              <Button type="submit" variant="primary">
-                Отправить
-              </Button>
+              <Button onClick={onHide} className="me-2" variant="secondary">Отменить</Button>
+              <Button type="submit">Отправить</Button>
             </div>
           </Form.Group>
         </Form>

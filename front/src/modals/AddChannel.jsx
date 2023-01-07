@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 // Slices
-import { channelSelectors } from '../slices/channelsSlice';
 import { actions as modalActions } from '../slices/modalSlice';
+import { channelSelectors } from '../slices/channelsSlice';
 // Socket
 import { socket } from '../socket';
 
@@ -20,7 +20,7 @@ const AddChannel = () => {
   }, []);
 
   const channelsNames = useSelector(channelSelectors.selectAll)
-    .map((item) => item.name);
+    .map((channel) => channel.name);
   const nameSchema = yup.object().shape({
     name: yup
       .string()
