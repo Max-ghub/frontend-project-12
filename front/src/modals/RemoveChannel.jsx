@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 // Slices
+import { actions as channelActions } from '../slices/channelsSlice';
 import { actions as modalActions } from '../slices/modalSlice';
 // Socket
 import { socket } from '../socket';
@@ -9,11 +10,13 @@ import { socket } from '../socket';
 const RemoveChannel = () => {
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.modals.item);
+  const { currentChannelId } = useSelector((state) => state.channels);
 
   const onHide = () => dispatch(modalActions.closeModal());
 
   const removeChannel = () => {
     socket.emit('removeChannel', { id });
+    if (currentChannelId === id) dispatch(channelActions.setCurrentChannel(1));
     onHide();
   };
 

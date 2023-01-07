@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
+import * as yup from 'yup';
 // Slices
+import { channelSelectors } from '../slices/channelsSlice';
 import { actions as modalActions } from '../slices/modalSlice';
 // Socket
 import { socket } from '../socket';
@@ -10,6 +12,7 @@ import { socket } from '../socket';
 // BEGIN (write your solution here)
 const AddChannel = () => {
   const dispatch = useDispatch();
+  const channels = useSelector(channelSelectors.selectAll);
 
   const inputRef = useRef();
   useEffect(() => {
@@ -18,14 +21,20 @@ const AddChannel = () => {
 
   const onHide = () => dispatch(modalActions.closeModal());
 
+  const nameSchema = yup.object().shape({
+    name: yup.string().min(3).required(),
+  });
   const formik = useFormik({
     initialValues: {
       name: '',
     },
     onSubmit: ({ name }) => {
+      const isExist = Object.values(channels).find((item) => item.name === name);
+      if (isExist) return;
       socket.emit('newChannel', { name });
       onHide();
     },
+    validationSchema: nameSchema,
   });
 
   return (
