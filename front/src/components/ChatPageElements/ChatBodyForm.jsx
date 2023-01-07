@@ -6,7 +6,7 @@ import { socket } from '../../socket';
 // Contexts
 import { AuthContext } from '../../contexts/AuthContext';
 
-const ChatSendForm = () => {
+const ChatBodyForm = () => {
   const { getUsername } = useContext(AuthContext);
   const { currentChannelId } = useSelector((state) => state.channels);
 
@@ -43,4 +43,4 @@ const ChatSendForm = () => {
   );
 };
 
-export { ChatSendForm };
+export { ChatBodyForm };

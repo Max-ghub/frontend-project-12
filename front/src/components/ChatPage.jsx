@@ -9,30 +9,29 @@ import { AuthContext } from '../contexts/AuthContext';
 // Routes
 import routes from '../routes';
 // Components
-import { ChatChannels } from './ChatPageElements/ChatChannels';
-import { ChatMessages } from './ChatPageElements/ChatMessages';
+import { ChannelsMenu } from './ChatPageElements/ChannelsMenu';
+import { ChatBody } from './ChatPageElements/ChatBody';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const { getAuthToken } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
-    // Getting a data from server with channels and messages of a user
+    // Getting channels and messages from server
     const fetchData = async () => {
-      const response = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${getAuthToken()}` } });
+      const response = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${auth.getAuthToken()}` } });
       const { channels, messages } = response.data;
       dispatch(channelsActions.addChannels(channels));
       dispatch(messagesActions.addMessages(messages));
-      console.log(channels, messages);
     };
     fetchData();
-  }, [dispatch, getAuthToken]);
+  }, [auth, dispatch]);
 
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
-        <ChatChannels />
-        <ChatMessages />
+        <ChannelsMenu />
+        <ChatBody />
       </div>
     </div>
   );

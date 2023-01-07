@@ -5,32 +5,32 @@ import cn from 'classnames';
 import { actions as channelsActions } from '../../slices/channelsSlice';
 import { actions as modalActions } from '../../slices/modalSlice';
 
-const ChannelItem = ({ item, channelId }) => {
+const ChannelsMenuItem = ({ channel, currentChannelId }) => {
   const dispatch = useDispatch();
 
-  const buttonClasses = ['w-100', 'rounded-0', 'text-start', 'btn', {
-    'text-truncate': item.removable,
-    'btn-secondary': item.id === channelId,
-  }];
-
-  const dropdownClasses = ['flex-grow-0', {
-    'btn-secondary': item.id === channelId,
-  }];
-
   const buildDefaultButton = () => {
+    const buttonClasses = ['w-100', 'rounded-0', 'text-start', 'btn', {
+      'text-truncate': channel.removable,
+      'btn-secondary': channel.id === currentChannelId,
+    }];
+
     return (
       <Button
         className={cn(buttonClasses)}
-        onClick={() => dispatch(channelsActions.setCurrentChannel(item.id))}
+        onClick={() => dispatch(channelsActions.setCurrentChannel(channel.id))}
         variant
       >
         <span className="me-1">#</span>
-        {item.name}
+        {channel.name}
       </Button>
     );
   };
 
   const buildRemovableButton = () => {
+    const dropdownClasses = ['flex-grow-0', {
+      'btn-secondary': channel.id === currentChannelId,
+    }];
+
     return (
       <Dropdown as={ButtonGroup} className="d-flex">
         {buildDefaultButton()}
@@ -45,18 +45,18 @@ const ChannelItem = ({ item, channelId }) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'removing', item }))}>Удалить</Dropdown.Item>
-          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'renaming', item }))}>Переименовать</Dropdown.Item>
+          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'removing', channel }))}>Удалить</Dropdown.Item>
+          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'renaming', channel }))}>Переименовать</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     );
   };
 
   return (
-    <li key={item.id} className="nav-item w-100">
-      {item.removable ? buildRemovableButton() : buildDefaultButton()}
+    <li key={channel.id} className="nav-item w-100">
+      {channel.removable ? buildRemovableButton() : buildDefaultButton()}
     </li>
   );
 };
 
-export { ChannelItem };
+export { ChannelsMenuItem };
