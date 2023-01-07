@@ -26,12 +26,11 @@ const AuthForm = () => {
     },
     onSubmit: async (values) => {
       try {
+        setAuthFailed(false);
         const response = await axios.post(routes.loginPath(), values);
         auth.login(response.data);
-        setAuthFailed(false);
         navigate('/');
       } catch (error) {
-        console.log(values);
         setAuthFailed(true);
       }
     },
@@ -41,6 +40,7 @@ const AuthForm = () => {
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
       <h1 className="text-center mb-4">Войти</h1>
+
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={formik.handleChange}
@@ -54,6 +54,7 @@ const AuthForm = () => {
         />
         <Form.Label htmlFor="username">Ваш ник</Form.Label>
       </Form.Group>
+
       <Form.Group className="form-floating mb-4">
         <Form.Control
           onChange={formik.handleChange}
@@ -68,6 +69,7 @@ const AuthForm = () => {
         <Form.Label htmlFor="password">Пароль</Form.Label>
         {authFailed && <Form.Control.Feedback type="invalid" tooltip>Неверные имя пользователя или пароль</Form.Control.Feedback>}
       </Form.Group>
+
       <Button type="submit" className="w-100 mb-3" variant="outline-primary" placement="right" disabled={formik.isSubmitting}>
         Войти
       </Button>
