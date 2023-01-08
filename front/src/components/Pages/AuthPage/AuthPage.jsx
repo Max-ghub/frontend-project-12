@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 // Images
-import authImage from '../assets/authPage.jpg';
+import authImage from './authPageImage.jpg';
 // Components
 import { AuthForm } from './AuthPageElements/AuthForm';
 

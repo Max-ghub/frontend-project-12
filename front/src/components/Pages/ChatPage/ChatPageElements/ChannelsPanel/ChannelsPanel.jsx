@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 // Slices
-import { channelSelectors } from '../../slices/channelsSlice';
-import { actions as modalActions } from '../../slices/modalSlice';
+import { channelSelectors } from '../../../../../slices/channelsSlice';
+import { actions as modalActions } from '../../../../../slices/modalSlice';
 // Components
-import { ChannelsMenuItem } from './ChannelsMenuItem';
+import { ChannelsPanelItem } from './ChannelsPanelItem';
 
-const ChannelsMenu = () => {
+const ChannelsPanel = () => {
   const dispath = useDispatch();
   const channelsList = useSelector(channelSelectors.selectAll);
   const { currentChannelId } = useSelector((state) => state.channels);
@@ -30,7 +30,7 @@ const ChannelsMenu = () => {
 
       <ul className="nav flex-column nav-pills nav-fill px-2">
         {channelsList.map((channel) => (
-          <ChannelsMenuItem
+          <ChannelsPanelItem
             key={channel.id}
             channel={channel}
             currentChannelId={currentChannelId}
@@ -42,4 +42,4 @@ const ChannelsMenu = () => {
   );
 };
 
-export { ChannelsMenu };
+export { ChannelsPanel };

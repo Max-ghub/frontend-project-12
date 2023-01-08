@@ -1,23 +1,24 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 // Slices
-import { actions as modalActions } from '../slices/modalSlice';
-import { channelSelectors } from '../slices/channelsSlice';
+import { actions as modalActions } from '../../slices/modalSlice';
+import { channelSelectors } from '../../slices/channelsSlice';
 // Socket
-import { socket } from '../socket';
+import { socket } from '../../socket';
 
-// BEGIN (write your solution here)
-const AddChannel = () => {
+const Rename = () => {
   const dispatch = useDispatch();
-  const onHide = () => dispatch(modalActions.closeModal());
+  const { item } = useSelector((state) => state.modals);
 
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  const onHide = () => dispatch(modalActions.closeModal());
 
   const channelsNames = useSelector(channelSelectors.selectAll)
     .map((channel) => channel.name);
@@ -35,7 +36,7 @@ const AddChannel = () => {
       name: '',
     },
     onSubmit: ({ name }) => {
-      socket.emit('newChannel', { name });
+      socket.emit('renameChannel', { id: item.id, name });
       onHide();
     },
     validationSchema: nameSchema,
@@ -46,7 +47,7 @@ const AddChannel = () => {
     <Modal show centered>
 
       <Modal.Header onHide={onHide} closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>Переименовать канал</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -75,5 +76,5 @@ const AddChannel = () => {
     </Modal>
   );
 };
-// END
-export { AddChannel };
+
+export { Rename };

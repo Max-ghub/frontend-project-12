@@ -4,20 +4,14 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 // Store
 import store from './slices';
-// Providers
-import { AuthProvider } from './providers/AuthProvider';
 // Components
-import App from './App';
+import App from './initApp';
 
 const root = ReactDOM.createRoot(document.getElementById('chat'));
 root.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <Provider store={store}>
-      <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AuthProvider>
+      <App />
     </Provider>
-  </React.StrictMode>,
+  </BrowserRouter>,
 );

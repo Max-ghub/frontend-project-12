@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 // Slices
-import { messageSelectors } from '../../slices/messagesSlice';
+import { messageSelectors } from '../../../../../slices/messagesSlice';
 // Components
 import { ChatBodyTitle } from './ChatBodyTitle';
 import { ChatBodyForm } from './ChatBodyForm';

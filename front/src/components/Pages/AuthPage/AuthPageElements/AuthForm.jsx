@@ -5,9 +5,9 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import * as yup from 'yup';
 // Contexts
-import { AuthContext } from '../../contexts/AuthContext';
+import { AuthContext } from '../../../../contexts/AuthContext';
 // Routes
-import routes from '../../routes';
+import routes from '../../../../routes';
 
 const AuthForm = () => {
   const navigate = useNavigate();

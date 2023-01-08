@@ -1,6 +1,5 @@
-// import { Form } from "react-bootstrap";
-import signupImage from '../assets/signupPage.jpg';
-import { SignupForm } from './SignupPageElements/SignupForm';
+import signupImage from './signUpPageImage.jpg';
+import { SignUpForm } from './SignUpPageElements/SignUpForm';
 
 const SignupPage = () => {
   return (
@@ -12,7 +11,7 @@ const SignupPage = () => {
               <div>
                 <img className="rounded-circle" src={signupImage} alt="Регистрация" />
               </div>
-              <SignupForm />
+              <SignUpForm />
             </div>
           </div>
         </div>

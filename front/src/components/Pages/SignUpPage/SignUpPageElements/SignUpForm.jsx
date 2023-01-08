@@ -5,11 +5,11 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import * as yup from 'yup';
 // Contexts
-import { AuthContext } from '../../contexts/AuthContext';
+import { AuthContext } from '../../../../contexts/AuthContext';
 // Routes
-import routes from '../../routes';
+import routes from '../../../../routes';
 
-const SignupForm = () => {
+const SignUpForm = () => {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
   const [signupFailed, setSignupFeild] = useState(false);
@@ -100,4 +100,4 @@ const SignupForm = () => {
   );
 };
 
-export { SignupForm };
+export { SignUpForm };

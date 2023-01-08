@@ -20,7 +20,6 @@ const messagesSlice = createSlice({
           .filter((item) => item.channelId !== channelId);
 
         messagesAdapter.setAll(state, newMessageEntities);
-        console.log(JSON.parse(JSON.stringify(state)));
       });
   },
 });
