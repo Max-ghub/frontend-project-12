@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 // Slices
 import { actions as channelActions } from '../../slices/channelsSlice';
@@ -9,6 +10,7 @@ import { socket } from '../../socket';
 
 const Remove = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { id } = useSelector((state) => state.modals.item);
   const { currentChannelId } = useSelector((state) => state.channels);
 
@@ -25,15 +27,19 @@ const Remove = () => {
 
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>
-          Удалить канал
+          {t('modals.remove.title')}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">{t('modals.remove.body')}</p>
         <div className="d-flex justify-content-end">
-          <Button className="me-2" variant="secondary" onClick={onHide}>Отменить</Button>
-          <Button variant="danger" onClick={removeChannel}>Удалить</Button>
+          <Button className="me-2" variant="secondary" onClick={onHide}>
+            {t('modals.remove.concel')}
+          </Button>
+          <Button variant="danger" onClick={removeChannel}>
+            {t('modals.remove.confirm')}
+          </Button>
         </div>
       </Modal.Body>
 

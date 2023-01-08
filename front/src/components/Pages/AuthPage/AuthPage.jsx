@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 // Images
 import authImage from './authPageImage.jpg';
 // Components
 import { AuthForm } from './AuthPageElements/AuthForm';
 
 const AuthPage = () => {
+  const { t } = useTranslation();
   const CardBody = (
     <div className="card-body row p-5">
       <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
@@ -17,8 +19,8 @@ const AuthPage = () => {
   const CardFooter = (
     <div className="card-footer p-4">
       <div className="text-center">
-        <span>{'Нет аккаунта? '}</span>
-        <Link to="/signup">Регистрация</Link>
+        <span>{`${t('loginPage.footer.text')} `}</span>
+        <Link to="/signup">{t('loginPage.footer.anchor')}</Link>
       </div>
     </div>
   );

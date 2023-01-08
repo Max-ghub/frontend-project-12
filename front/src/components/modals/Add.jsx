@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 // Slices
 import { actions as modalActions } from '../../slices/modalSlice';
@@ -12,6 +13,7 @@ import { socket } from '../../socket';
 // BEGIN (write your solution here)
 const Add = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const onHide = () => dispatch(modalActions.closeModal());
 
   const inputRef = useRef();
@@ -46,7 +48,9 @@ const Add = () => {
     <Modal show centered>
 
       <Modal.Header onHide={onHide} closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>
+          {t('modals.add.title')}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -65,8 +69,12 @@ const Add = () => {
             {isInvalid && <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>}
 
             <div className="d-flex justify-content-end">
-              <Button onClick={onHide} className="me-2" variant="secondary">Отменить</Button>
-              <Button type="submit">Отправить</Button>
+              <Button onClick={onHide} className="me-2" variant="secondary">
+                {t('modals.add.concel')}
+              </Button>
+              <Button type="submit">
+                {t('modals.add.confirm')}
+              </Button>
             </div>
           </Form.Group>
         </Form>

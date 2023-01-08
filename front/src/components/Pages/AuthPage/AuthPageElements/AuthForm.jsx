@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Form, Button } from 'react-bootstrap';
+import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 // Contexts
@@ -11,6 +12,7 @@ import routes from '../../../../routes';
 
 const AuthForm = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const auth = useContext(AuthContext);
   const [authFailed, setAuthFailed] = useState(false);
 
@@ -39,7 +41,7 @@ const AuthForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-      <h1 className="text-center mb-4">Войти</h1>
+      <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
 
       <Form.Group className="form-floating mb-3">
         <Form.Control
@@ -52,7 +54,7 @@ const AuthForm = () => {
           placeholder="Ваш ник"
           required
         />
-        <Form.Label htmlFor="username">Ваш ник</Form.Label>
+        <Form.Label htmlFor="username">{t('loginPage.fields.name')}</Form.Label>
       </Form.Group>
 
       <Form.Group className="form-floating mb-4">
@@ -66,12 +68,12 @@ const AuthForm = () => {
           placeholder="Пароль"
           required
         />
-        <Form.Label htmlFor="password">Пароль</Form.Label>
+        <Form.Label htmlFor="password">{t('loginPage.fields.password')}</Form.Label>
         {authFailed && <Form.Control.Feedback type="invalid" tooltip>Неверные имя пользователя или пароль</Form.Control.Feedback>}
       </Form.Group>
 
       <Button type="submit" className="w-100 mb-3" variant="outline-primary" placement="right" disabled={formik.isSubmitting}>
-        Войти
+        {t('loginPage.submit')}
       </Button>
     </Form>
   );

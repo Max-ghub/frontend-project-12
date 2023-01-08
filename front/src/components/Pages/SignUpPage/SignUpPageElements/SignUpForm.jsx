@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Form, Button } from 'react-bootstrap';
+import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
 // Contexts
@@ -11,6 +12,7 @@ import routes from '../../../../routes';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const auth = useContext(AuthContext);
   const [signupFailed, setSignupFeild] = useState(false);
 
@@ -41,7 +43,7 @@ const SignUpForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="w-50">
-      <h1 className="text-center mb-4">Регистрация</h1>
+      <h1 className="text-center mb-4">{t('signUpPage.title')}</h1>
 
       <Form.Group className="form-floating mb-3">
         <Form.Control
@@ -54,7 +56,7 @@ const SignUpForm = () => {
           placeholder="От 3 до 20 символов"
           required
         />
-        <Form.Label>Имя пользователя</Form.Label>
+        <Form.Label>{t('signUpPage.fields.name')}</Form.Label>
         {signupFailed && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>}
       </Form.Group>
 
@@ -71,7 +73,7 @@ const SignUpForm = () => {
           aria-describedby="passwordHelpBlock"
           required
         />
-        <Form.Label>Пароль</Form.Label>
+        <Form.Label>{t('signUpPage.fields.password')}</Form.Label>
         {signupFailed && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>}
       </Form.Group>
 
@@ -87,7 +89,7 @@ const SignUpForm = () => {
           placeholder="Пароли должны совпадать"
           required
         />
-        <Form.Label>Подтвердите пароль</Form.Label>
+        <Form.Label>{t('signUpPage.fields.confirmPassword')}</Form.Label>
         {signupFailed && (
         <Form.Control.Feedback type="invalid" tooltip>
           {formik.errors.confirmPassword || 'Такой пользователь уже существует'}
@@ -95,7 +97,9 @@ const SignUpForm = () => {
         )}
       </Form.Group>
 
-      <Button type="submit" className="w-100" variant="outline-primary">Зарегистрироваться</Button>
+      <Button type="submit" className="w-100" variant="outline-primary">
+        {t('signUpPage.submit')}
+      </Button>
     </Form>
   );
 };

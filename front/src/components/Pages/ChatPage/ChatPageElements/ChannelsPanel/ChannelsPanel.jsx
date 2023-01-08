@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 // Slices
 import { channelSelectors } from '../../../../../slices/channelsSlice';
 import { actions as modalActions } from '../../../../../slices/modalSlice';
@@ -7,6 +8,7 @@ import { ChannelsPanelItem } from './ChannelsPanelItem';
 
 const ChannelsPanel = () => {
   const dispath = useDispatch();
+  const { t } = useTranslation();
   const channelsList = useSelector(channelSelectors.selectAll);
   const { currentChannelId } = useSelector((state) => state.channels);
 
@@ -14,7 +16,7 @@ const ChannelsPanel = () => {
     <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
 
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-        <span>Каналы</span>
+        <span>{t('chatPage.channelsPanel.title')}</span>
         <button
           type="button"
           className="p-0 text-primary btn btn-group-vertical"

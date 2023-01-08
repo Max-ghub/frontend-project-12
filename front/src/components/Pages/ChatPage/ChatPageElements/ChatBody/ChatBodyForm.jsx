@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
 // Socket
 import { socket } from '../../../../../socket';
@@ -7,6 +8,7 @@ import { socket } from '../../../../../socket';
 import { AuthContext } from '../../../../../contexts/AuthContext';
 
 const ChatBodyForm = () => {
+  const { t } = useTranslation();
   const { getUsername } = useContext(AuthContext);
   const { currentChannelId } = useSelector((state) => state.channels);
 
@@ -28,7 +30,7 @@ const ChatBodyForm = () => {
           <Field
             className="border-0 p-0 ps-2 form-control"
             name="body"
-            placeholder="Введите сообщение..."
+            placeholder={t('chatPage.body.fieldPH')}
             aria-label="Новое сообщение"
           />
           <button type="submit" className="btn btn-group-vertical">

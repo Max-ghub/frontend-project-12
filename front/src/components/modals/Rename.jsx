@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 // Slices
 import { actions as modalActions } from '../../slices/modalSlice';
@@ -11,8 +12,8 @@ import { socket } from '../../socket';
 
 const Rename = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { item } = useSelector((state) => state.modals);
-
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -47,7 +48,9 @@ const Rename = () => {
     <Modal show centered>
 
       <Modal.Header onHide={onHide} closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>
+          {t('modals.rename.title')}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -66,8 +69,12 @@ const Rename = () => {
             {isInvalid && <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>}
 
             <div className="d-flex justify-content-end">
-              <Button onClick={onHide} className="me-2" variant="secondary">Отменить</Button>
-              <Button type="submit">Отправить</Button>
+              <Button onClick={onHide} className="me-2" variant="secondary">
+                {t('modals.rename.concel')}
+              </Button>
+              <Button type="submit">
+                {t('modals.rename.confirm')}
+              </Button>
             </div>
           </Form.Group>
         </Form>
