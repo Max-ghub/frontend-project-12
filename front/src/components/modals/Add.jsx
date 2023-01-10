@@ -23,15 +23,17 @@ const Add = () => {
     inputRef.current.focus();
   }, []);
 
+  const minChannelName = 3;
+  const maxChannelName = 20;
   const channelsNames = useSelector(channelSelectors.selectAll)
     .map((channel) => channel.name);
   const nameSchema = yup.object().shape({
     name: yup
       .string()
-      .required()
-      .min(3)
-      .max(20)
-      .notOneOf(channelsNames),
+      .required(t('modals.errors.required'))
+      .min(minChannelName, t('modals.errors.channelLength', { min: minChannelName, max: maxChannelName }))
+      .max(maxChannelName, t('modals.errors.channelLength', { min: minChannelName, max: maxChannelName }))
+      .notOneOf(channelsNames, t('modals.errors.existedChannel')),
   });
 
   const formik = useFormik({

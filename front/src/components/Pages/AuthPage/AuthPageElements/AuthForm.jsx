@@ -17,8 +17,8 @@ const AuthForm = () => {
   const [authFailed, setAuthFailed] = useState(false);
 
   const authSchema = yup.object().shape({
-    username: yup.string().required(),
-    password: yup.string().required(),
+    username: yup.string().required().trim(),
+    password: yup.string().required().trim(),
   });
 
   const formik = useFormik({
@@ -41,7 +41,7 @@ const AuthForm = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-      <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
+      <h1 className="text-center mb-4">{t('authPage.title')}</h1>
 
       <Form.Group className="form-floating mb-3">
         <Form.Control
@@ -54,7 +54,7 @@ const AuthForm = () => {
           placeholder="Ваш ник"
           required
         />
-        <Form.Label htmlFor="username">{t('loginPage.fields.name')}</Form.Label>
+        <Form.Label htmlFor="username">{t('authPage.fields.name')}</Form.Label>
       </Form.Group>
 
       <Form.Group className="form-floating mb-4">
@@ -68,12 +68,12 @@ const AuthForm = () => {
           placeholder="Пароль"
           required
         />
-        <Form.Label htmlFor="password">{t('loginPage.fields.password')}</Form.Label>
-        {authFailed && <Form.Control.Feedback type="invalid" tooltip>Неверные имя пользователя или пароль</Form.Control.Feedback>}
+        <Form.Label htmlFor="password">{t('authPage.fields.password')}</Form.Label>
+        {authFailed && <Form.Control.Feedback type="invalid" tooltip>{t('authPage.errors.auth')}</Form.Control.Feedback>}
       </Form.Group>
 
       <Button type="submit" className="w-100 mb-3" variant="outline-primary" placement="right" disabled={formik.isSubmitting}>
-        {t('loginPage.submit')}
+        {t('authPage.submit')}
       </Button>
     </Form>
   );

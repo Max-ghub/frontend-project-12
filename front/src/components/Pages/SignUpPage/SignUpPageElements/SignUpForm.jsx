@@ -14,14 +14,30 @@ const SignUpForm = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const auth = useContext(AuthContext);
-  const [signupFailed, setSignupFeild] = useState(false);
-
+  const [signUpFailed, setSignUpFeild] = useState(false);
+  // console.log(isSubmited, signUpFailed);
+  const minUsername = 3;
+  const maxUsername = 20;
+  const minPassword = 6;
   const signupSchema = yup.object().shape({
-    username: yup.string().required().min(3).max(20),
-    password: yup.string().required().min(6),
-    confirmPassword: yup.string().required().min(6).oneOf([yup.ref('password')]),
+    username: yup
+      .string()
+      .required(t('signUpPage.errors.required'))
+      .min(minUsername, t('signUpPage.errors.usernameLength', { min: minUsername, max: maxUsername }))
+      .max(maxUsername, t('signUpPage.errors.usernameLength', { min: minUsername, max: maxUsername }))
+      .trim(),
+    password: yup
+      .string()
+      .required(t('signUpPage.errors.required'))
+      .min(minPassword, t('signUpPage.errors.passwordLength', { min: minPassword }))
+      .trim(),
+    confirmPassword: yup
+      .string()
+      .required(t('signUpPage.errors.required'))
+      .min(minPassword, t('signUpPage.errors.oneOf', { min: minPassword }))
+      .oneOf([yup.ref('password')], t('signUpPage.errors.oneOf'))
+      .trim(),
   });
-
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -30,12 +46,11 @@ const SignUpForm = () => {
     },
     onSubmit: async ({ username, password }) => {
       try {
-        setSignupFeild(false);
         const response = await axios.post(routes.signupPath(), { username, password });
         auth.login(response.data);
         navigate('/');
       } catch (error) {
-        setSignupFeild(true);
+        setSignUpFeild(true);
       }
     },
     validationSchema: signupSchema,
@@ -44,44 +59,43 @@ const SignUpForm = () => {
   return (
     <Form onSubmit={formik.handleSubmit} className="w-50">
       <h1 className="text-center mb-4">{t('signUpPage.title')}</h1>
-
+      {console.log(formik)}
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.username}
-          isInvalid={signupFailed && formik.errors.username}
+          isInvalid={formik.touched.username && formik.errors.username}
           id="username"
           name="username"
           autoComplete="username"
-          placeholder="От 3 до 20 символов"
           required
         />
         <Form.Label>{t('signUpPage.fields.name')}</Form.Label>
-        {signupFailed && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>}
+        {formik.touched.username && formik.errors.username && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>}
       </Form.Group>
 
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.password}
-          isInvalid={signupFailed && formik.errors.password}
+          isInvalid={formik.touched.password && formik.errors.password}
           type="password"
           id="password"
           name="password"
           autoComplete="new-password"
-          placeholder="Не менее 6 символов"
           aria-describedby="passwordHelpBlock"
           required
         />
         <Form.Label>{t('signUpPage.fields.password')}</Form.Label>
-        {signupFailed && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>}
+        {formik.touched.password && formik.errors.password && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>}
       </Form.Group>
 
       <Form.Group className="form-floating mb-4">
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.confirmPassword}
-          isInvalid={signupFailed}
+          isInvalid={signUpFailed
+            || (formik.touched.confirmPassword && formik.errors.confirmPassword)}
           type="password"
           id="confirmPassword"
           name="confirmPassword"
@@ -90,11 +104,8 @@ const SignUpForm = () => {
           required
         />
         <Form.Label>{t('signUpPage.fields.confirmPassword')}</Form.Label>
-        {signupFailed && (
-        <Form.Control.Feedback type="invalid" tooltip>
-          {formik.errors.confirmPassword || 'Такой пользователь уже существует'}
-        </Form.Control.Feedback>
-        )}
+        {(!signUpFailed && formik.touched.confirmPassword && formik.errors.confirmPassword) && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>}
+        {(signUpFailed) && <Form.Control.Feedback type="invalid" tooltip>{t('signUpPage.errors.existedUser')}</Form.Control.Feedback>}
       </Form.Group>
 
       <Button type="submit" className="w-100" variant="outline-primary">

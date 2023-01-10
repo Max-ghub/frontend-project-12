@@ -19,8 +19,8 @@ const AuthPage = () => {
   const CardFooter = (
     <div className="card-footer p-4">
       <div className="text-center">
-        <span>{`${t('loginPage.footer.text')} `}</span>
-        <Link to="/signup">{t('loginPage.footer.anchor')}</Link>
+        <span>{`${t('authPage.footer.text')} `}</span>
+        <Link to="/signup">{t('authPage.footer.anchor')}</Link>
       </div>
     </div>
   );

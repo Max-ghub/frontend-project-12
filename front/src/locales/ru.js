@@ -1,10 +1,9 @@
 export default {
   translation: {
     nav: {
-      text: 'Чат',
       logout: 'Выйти',
     },
-    loginPage: {
+    authPage: {
       title: 'Войти',
       fields: {
         name: 'Ваш ник',
@@ -15,6 +14,9 @@ export default {
         text: 'Нет аккаунта?',
         anchor: 'Регистрация',
       },
+      errors: {
+        auth: 'Неверные имя пользователя или пароль',
+      },
     },
     signUpPage: {
       title: 'Регистрация',
@@ -24,6 +26,13 @@ export default {
         confirmPassword: 'Подтвердите пароль',
       },
       submit: 'Зарегистрироваться',
+      errors: {
+        required: 'Поле не должно быть пустым',
+        usernameLength: 'От {{min}} до {{max}} символов',
+        passwordLength: 'Не менее {{min}} символов',
+        oneOf: 'Пароли должны совпадать',
+        existedUser: 'Такой пользователь уже существует',
+      },
     },
     chatPage: {
       channelsPanel: {
@@ -52,6 +61,11 @@ export default {
         title: 'Переименовать канал',
         confirm: 'Отправить',
         concel: 'Отменить',
+      },
+      errors: {
+        required: 'Обязательное поле',
+        channelLength: 'От {{min}} до {{max}} символов',
+        existedChannel: 'Должно быть уникальным',
       },
     },
     toast: {

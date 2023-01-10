@@ -14,7 +14,7 @@ const Layout = () => {
       <nav className="shadow navbar navbar-expand-lg navbar-light bg-dark">
         <div className="container">
           <Link className="navbar-brand text-light" to="/">
-            {`Hexlet ${t('nav.text')}`}
+            Hexlet Chat
           </Link>
           {auth.loggedIn() && <Button onClick={auth.logout}>{t('nav.logout')}</Button>}
         </div>
