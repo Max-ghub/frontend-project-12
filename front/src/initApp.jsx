@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
+import { Provider, ErrorBoundary } from '@rollbar/react';
 import resources from './locales/index';
 // Slices
 import { actions as channelActions } from './slices/channelsSlice';
@@ -22,6 +24,14 @@ const App = () => {
     resources,
   });
 
+  const rollbarConfig = {
+    accessToken: 'e6607fcc9c3d4412b1f7889e6be37196',
+    environment: 'testenv',
+  };
+
+  const ruDict = leoProfanity.getDictionary('ru');
+  leoProfanity.add(ruDict);
+
   useEffect(() => {
     socket.on('newMessage', (payload) => {
       dispatch(messageActions.addMessage(payload));
@@ -39,9 +49,13 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <AuthProvider>
-      <MainPage />
-    </AuthProvider>
+    <Provider config={rollbarConfig}>
+      <AuthProvider>
+        <ErrorBoundary>
+          <MainPage />
+        </ErrorBoundary>
+      </AuthProvider>
+    </Provider>
   );
 };
 

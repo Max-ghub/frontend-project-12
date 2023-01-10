@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
+import leoProfanity from 'leo-profanity';
 // Socket
 import { socket } from '../../../../../socket';
 // Contexts
@@ -16,8 +17,9 @@ const ChatBodyForm = () => {
     <Formik
       initialValues={{ body: '' }}
       onSubmit={({ body }, { resetForm }) => {
+        const filteredMessage = leoProfanity.clean(body);
         const newMessageData = {
-          body,
+          body: filteredMessage,
           channelId: currentChannelId,
           username: getUsername(),
         };

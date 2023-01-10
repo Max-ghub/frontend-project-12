@@ -5,6 +5,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 // Slices
 import { actions as modalActions } from '../../slices/modalSlice';
 import { channelSelectors } from '../../slices/channelsSlice';
@@ -38,7 +39,9 @@ const Rename = () => {
       name: '',
     },
     onSubmit: ({ name }) => {
-      socket.emit('renameChannel', { id: item.id, name });
+      const filteredName = leoProfanity.clean(name);
+      console.log(filteredName);
+      socket.emit('renameChannel', { id: item.id, name: filteredName });
       onHide();
       toast.success(t('toast.rename'));
     },
