@@ -1,4 +1,6 @@
-import { useState, useContext } from 'react';
+import {
+  useEffect, useState, useContext, useRef,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Form, Button } from 'react-bootstrap';
@@ -12,10 +14,15 @@ import routes from '../../../../routes';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const usernameRef = useRef(null);
   const { t } = useTranslation();
   const auth = useContext(AuthContext);
   const [signUpFailed, setSignUpFeild] = useState(false);
-  // console.log(isSubmited, signUpFailed);
+
+  useEffect(() => {
+    usernameRef.current.focus();
+  }, []);
+
   const minUsername = 3;
   const maxUsername = 20;
   const minPassword = 6;
@@ -33,10 +40,7 @@ const SignUpForm = () => {
       .trim(),
     confirmPassword: yup
       .string()
-      .required(t('signUpPage.errors.required'))
-      .min(minPassword, t('signUpPage.errors.oneOf', { min: minPassword }))
-      .oneOf([yup.ref('password')], t('signUpPage.errors.oneOf'))
-      .trim(),
+      .oneOf([yup.ref('password')], t('signUpPage.errors.oneOf')),
   });
   const formik = useFormik({
     initialValues: {
@@ -50,7 +54,11 @@ const SignUpForm = () => {
         auth.login(response.data);
         navigate('/');
       } catch (error) {
-        setSignUpFeild(true);
+        if (error.response.status === 409) {
+          setSignUpFeild(true);
+          usernameRef.current.select();
+        }
+        throw error;
       }
     },
     validationSchema: signupSchema,
@@ -59,53 +67,60 @@ const SignUpForm = () => {
   return (
     <Form onSubmit={formik.handleSubmit} className="w-50">
       <h1 className="text-center mb-4">{t('signUpPage.title')}</h1>
-      {console.log(formik)}
+
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.username}
-          isInvalid={formik.touched.username && formik.errors.username}
+          isInvalid={(formik.touched.username && formik.errors.username) || signUpFailed}
+          onBlur={formik.handleBlur}
+          ref={usernameRef}
+          type="text"
           id="username"
           name="username"
           autoComplete="username"
+          placeholder={t('signUpPage.fields.name')}
           required
         />
-        <Form.Label>{t('signUpPage.fields.name')}</Form.Label>
-        {formik.touched.username && formik.errors.username && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.username}</Form.Control.Feedback>}
+        <Form.Label htmlFor="username">{t('signUpPage.fields.name')}</Form.Label>
+        <Form.Control.Feedback type="invalid" tooltip placement="right">{formik.errors.username}</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="form-floating mb-3">
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.password}
-          isInvalid={formik.touched.password && formik.errors.password}
+          isInvalid={(formik.touched.password && formik.errors.password) || signUpFailed}
+          onBlur={formik.handleBlur}
           type="password"
           id="password"
           name="password"
           autoComplete="new-password"
           aria-describedby="passwordHelpBlock"
+          placeholder={t('signUpPage.errors.password')}
           required
         />
-        <Form.Label>{t('signUpPage.fields.password')}</Form.Label>
-        {formik.touched.password && formik.errors.password && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.password}</Form.Control.Feedback>}
+        <Form.Label htmlFor="password">{t('signUpPage.fields.password')}</Form.Label>
+        <Form.Control.Feedback type="invalid" tooltip placement="right">{formik.errors.password}</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="form-floating mb-4">
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.confirmPassword}
-          isInvalid={signUpFailed
-            || (formik.touched.confirmPassword && formik.errors.confirmPassword)}
+          isInvalid={signUpFailed || formik.errors.confirmPassword}
+          onBlur={formik.handleBlur}
           type="password"
           id="confirmPassword"
           name="confirmPassword"
           autoComplete="new-password"
-          placeholder="Пароли должны совпадать"
+          placeholder={t('signUpPage.fields.confirmPassword')}
           required
         />
-        <Form.Label>{t('signUpPage.fields.confirmPassword')}</Form.Label>
-        {(!signUpFailed && formik.touched.confirmPassword && formik.errors.confirmPassword) && <Form.Control.Feedback type="invalid" tooltip>{formik.errors.confirmPassword}</Form.Control.Feedback>}
-        {(signUpFailed) && <Form.Control.Feedback type="invalid" tooltip>{t('signUpPage.errors.existedUser')}</Form.Control.Feedback>}
+        <Form.Label htmlFor="confirmPassword">{t('signUpPage.fields.confirmPassword')}</Form.Label>
+        <Form.Control.Feedback type="invalid" tooltip placement="right">
+          {signUpFailed ? t('signUpPage.errors.existedUser') : formik.errors.confirmPassword}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Button type="submit" className="w-100" variant="outline-primary">

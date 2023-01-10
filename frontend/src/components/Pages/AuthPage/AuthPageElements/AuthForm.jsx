@@ -1,4 +1,6 @@
-import { useState, useContext } from 'react';
+import {
+  useEffect, useState, useContext, useRef,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Form, Button } from 'react-bootstrap';
@@ -12,9 +14,14 @@ import routes from '../../../../routes';
 
 const AuthForm = () => {
   const navigate = useNavigate();
+  const usernameRef = useRef(null);
   const { t } = useTranslation();
   const auth = useContext(AuthContext);
   const [authFailed, setAuthFailed] = useState(false);
+
+  useEffect(() => {
+    usernameRef.current.focus();
+  }, []);
 
   const authSchema = yup.object().shape({
     username: yup.string().required().trim(),
@@ -48,6 +55,7 @@ const AuthForm = () => {
           onChange={formik.handleChange}
           value={formik.values.username}
           isInvalid={authFailed}
+          ref={usernameRef}
           id="username"
           name="username"
           autoComplete="username"

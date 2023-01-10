@@ -27,7 +27,7 @@ export default {
       },
       submit: 'Зарегистрироваться',
       errors: {
-        required: 'Поле не должно быть пустым',
+        required: 'Обязательное поле',
         usernameLength: 'От {{min}} до {{max}} символов',
         passwordLength: 'Не менее {{min}} символов',
         oneOf: 'Пароли должны совпадать',
