@@ -1,4 +1,7 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 // Hoc
 import { RequireAuth } from './hoc/RequireAuth';
 // Components
@@ -11,6 +14,7 @@ import { NotFoundPage } from './components/Pages/NotFoundPage/NotFoundPage';
 const MainPage = () => {
   return (
     <div className="d-flex flex-column h-100">
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<RequireAuth><ChatPage /></RequireAuth>} />

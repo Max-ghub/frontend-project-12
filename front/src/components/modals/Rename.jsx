@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 // Slices
 import { actions as modalActions } from '../../slices/modalSlice';
 import { channelSelectors } from '../../slices/channelsSlice';
@@ -39,6 +40,7 @@ const Rename = () => {
     onSubmit: ({ name }) => {
       socket.emit('renameChannel', { id: item.id, name });
       onHide();
+      toast.success(t('toast.rename'));
     },
     validationSchema: nameSchema,
   });

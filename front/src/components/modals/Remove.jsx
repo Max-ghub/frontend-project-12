@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 // Slices
 import { actions as channelActions } from '../../slices/channelsSlice';
 import { actions as modalActions } from '../../slices/modalSlice';
@@ -20,6 +21,7 @@ const Remove = () => {
     socket.emit('removeChannel', { id });
     if (currentChannelId === id) dispatch(channelActions.setCurrentChannel(1));
     onHide();
+    toast.success(t('toast.remove'));
   };
 
   return (
