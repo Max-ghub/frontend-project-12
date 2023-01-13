@@ -37,6 +37,11 @@ export default {
     chatPage: {
       channelsPanel: {
         title: 'Каналы',
+        dropdown: {
+          span: 'Управление каналом',
+          remove: 'Удалить',
+          rename: 'Переименовать',
+        },
       },
       body: {
         title: {

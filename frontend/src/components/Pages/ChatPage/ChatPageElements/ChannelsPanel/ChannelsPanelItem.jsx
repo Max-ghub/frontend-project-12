@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 // Slices
 import { actions as channelsActions } from '../../../../../slices/channelsSlice';
@@ -8,9 +9,10 @@ import { actions as modalActions } from '../../../../../slices/modalSlice';
 
 const ChannelsPanelItem = ({ channel, currentChannelId }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const buildDefaultButton = () => {
-    const buttonClasses = ['w-100', 'rounded-0', 'text-start', 'btn', {
+    const buttonClasses = ['w-100', 'rounded-0', 'text-start', {
       'text-truncate': channel.removable,
       'btn-secondary': channel.id === currentChannelId,
     }];
@@ -42,12 +44,18 @@ const ChannelsPanelItem = ({ channel, currentChannelId }) => {
           split
           variant
         >
-          <span className="visually-hidden">Управление каналом</span>
+          <span className="visually-hidden">
+            {t('chatPage.channelsPanel.dropdown.span')}
+          </span>
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'removing', channel }))}>Удалить</Dropdown.Item>
-          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'renaming', channel }))}>Переименовать</Dropdown.Item>
+          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'removing', channel }))}>
+            {t('chatPage.channelsPanel.dropdown.remove')}
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ type: 'renaming', channel }))}>
+            {t('chatPage.channelsPanel.dropdown.rename')}
+          </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     );
