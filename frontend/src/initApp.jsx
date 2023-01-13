@@ -4,14 +4,15 @@ import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
 import { Provider, ErrorBoundary } from '@rollbar/react';
+// Providers
+import { AuthProvider } from './contexts/AuthContext';
+// Locales
 import resources from './locales/index';
 // Slices
 import { actions as channelActions } from './slices/channelsSlice';
 import { actions as messageActions } from './slices/messagesSlice';
 // Socket
 import { socket } from './socket';
-// Providers
-import { AuthProvider } from './providers/AuthProvider';
 // Components
 import { MainPage } from './MainPage';
 
