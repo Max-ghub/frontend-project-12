@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+/* eslint-disable import/prefer-default-export */
 import { useState } from 'react';
 // Contexts
 import { AuthContext } from '../contexts/AuthContext';

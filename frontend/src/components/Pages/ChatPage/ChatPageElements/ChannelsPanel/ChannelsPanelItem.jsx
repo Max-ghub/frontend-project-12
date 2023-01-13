@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { useDispatch } from 'react-redux';
 import { ButtonGroup, Button, Dropdown } from 'react-bootstrap';
 import cn from 'classnames';

@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { useSelector } from 'react-redux';
 // Slices
 import { messageSelectors } from '../../../../../slices/messagesSlice';

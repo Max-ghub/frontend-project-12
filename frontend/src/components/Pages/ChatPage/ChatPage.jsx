@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';

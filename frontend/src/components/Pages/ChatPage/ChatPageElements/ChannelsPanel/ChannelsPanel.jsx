@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 // Slices

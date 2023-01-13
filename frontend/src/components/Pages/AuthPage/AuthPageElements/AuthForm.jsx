@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import {
   useEffect, useState, useContext, useRef,
 } from 'react';

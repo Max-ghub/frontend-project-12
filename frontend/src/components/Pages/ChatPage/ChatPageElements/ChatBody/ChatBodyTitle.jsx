@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { useTranslation } from 'react-i18next';
 
 const ChatBodyTitle = ({ channelName, messagesCount }) => {

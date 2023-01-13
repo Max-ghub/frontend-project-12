@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
