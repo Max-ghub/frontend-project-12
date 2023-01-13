@@ -26,9 +26,9 @@ const Remove = () => {
   };
 
   return (
-    <Modal show centered>
+    <Modal onHide={onHide} show centered>
 
-      <Modal.Header closeButton onHide={onHide}>
+      <Modal.Header closeButton>
         <Modal.Title>
           {t('modals.remove.title')}
         </Modal.Title>

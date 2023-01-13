@@ -52,9 +52,9 @@ const Add = () => {
   const isInvalid = formik.touched.name && formik.errors.name;
 
   return (
-    <Modal show centered>
+    <Modal onHide={onHide} show centered>
 
-      <Modal.Header onHide={onHide} closeButton>
+      <Modal.Header closeButton>
         <Modal.Title>
           {t('modals.add.title')}
         </Modal.Title>
